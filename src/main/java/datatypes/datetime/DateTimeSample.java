@@ -24,6 +24,7 @@ public class DateTimeSample {
 
     private static void showBadPracticeDate() throws ParseException {
         // outdated API before Java 8
+        long startTime = System.currentTimeMillis();
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
         gregorianCalendar.set(2023, Calendar.OCTOBER, 22);
         Date firstDate = gregorianCalendar.getTime();
@@ -33,16 +34,19 @@ public class DateTimeSample {
         Date secondDate = simpleDateFormat.parse("09 May 2022");
         gregorianCalendar.setTime(secondDate);
         System.out.println("Day of month: " + gregorianCalendar.get(Calendar.DAY_OF_MONTH));
+        System.out.println("Time spent in ms: " + (System.currentTimeMillis() - startTime));
     }
 
     private static void showGoodPracticeDate() {
         // new API from Java 8
+        long startTime = System.currentTimeMillis();
         LocalDate firstDate = LocalDate.of(2023, Month.OCTOBER, 22);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH);
         System.out.println(formatter.format(firstDate));
 
         LocalDate secondDate = LocalDate.parse("09 May 2022", formatter);
         System.out.println("Day of month: " + secondDate.getDayOfMonth());
+        System.out.println("Time spent in ms: " + (System.currentTimeMillis() - startTime));
     }
 
     private static void showGoodPracticeTime() {
